@@ -72,4 +72,32 @@ The code here dirctly underneath goes in to ```path_steps.rb``` and the rest wil
 ```ruby
 Given(/^I am on the home page$/) do
   pending # express the regexp above with the code you wish you had
-end```
+end
+```
+
+In ```general_steps.rb``` change the block in the regular expression.
+
+- current file
+
+```ruby
+Given(/^I follow "(.*?)"$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+```
+
+- updated file
+```ruby
+Given(/^I follow "(.*?)"$/) do |link_name|
+  pending # express the regexp above with the code you wish you had
+end
+```
+
+for the other expresssions check this [link](https://github.com/kevinegstorf/cukes_bdd/blob/master/features/step_definitions/general_steps.rb).
+
+when running
+
+```
+$rake cucumber
+```
+
+the message in the command is updated. there are no more suggestion in regexp but just saying what need to be implemented.
