@@ -67,7 +67,7 @@ end
 
 These can be copied an pasted in a two files. at ```features/step_definitions```. The name of the file will be ```general_steps.rb```and ```path_steps.rb```.
 
-The code here dirctly underneath goes in to ```path_steps.rb``` and the rest will be used for ```general_steps.rb```.
+The code here directly underneath goes in to ```path_steps.rb``` and the rest will be used for ```general_steps.rb```.
 
 ```ruby
 Given(/^I am on the home page$/) do
