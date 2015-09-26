@@ -67,7 +67,7 @@ end
 
 These can be copied an pasted in a two files. at ```features/step_definitions```. The name of the file will be ```general_steps.rb```and ```path_steps.rb```.
 
-The code here directly underneath goes in to ```path_steps.rb``` and the rest will be used for ```general_steps.rb```.
+The code here dirctly underneath goes in to ```path_steps.rb``` and the rest will be used for ```general_steps.rb```.
 
 ```ruby
 Given(/^I am on the home page$/) do
@@ -86,13 +86,14 @@ end
 ```
 
 - updated file
+
 ```ruby
 Given(/^I follow "(.*?)"$/) do |link_name|
   pending # express the regexp above with the code you wish you had
 end
 ```
 
-for the other expresssions check this [link](https://github.com/kevinegstorf/cukes_bdd/blob/master/features/step_definitions/general_steps.rb).
+For the other expresssions check this [link](https://github.com/kevinegstorf/cukes_bdd/blob/master/features/step_definitions/general_steps.rb).
 
 when running
 
@@ -100,4 +101,28 @@ when running
 $rake cucumber
 ```
 
-the message in the command is updated. there are no more suggestion in regexp but just saying what need to be implemented.
+the message in the command is updated. there are no more suggestion in regexp but just saying what needs to be implemented.
+also add the [Capybara](https://github.com/jnicklas/capybara) gem to the gemfile.
+
+##Updating tests
+The Capybara gem provides a way to move around the webpage using code.
+Inside the Capybara documentation you can find special keywords we can use in our regexp of the ```features/step_definitions```.
+
+special keywords are for instance:
+
+- fill_in
+- click_button
+
+an example used in capybara is:
+
+```ruby
+When /I sign in/ do
+  within("#session") do
+    fill_in 'Email', :with => 'user@example.com'
+    fill_in 'Password', :with => 'password'
+  end
+  click_button 'Sign in'
+end
+```
+
+for more examples look at the [capybara documentation](https://github.com/jnicklas/capybara).
