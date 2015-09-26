@@ -7,7 +7,7 @@ Feature: Blogging
     Given I am on the home page
     And I follow "New Post"
     When I fill in "Title" with "Hello World!"
-    And I fil in "Body" with "This is my post!"
+    And I fill in "Body" with "This is my post!"
     And I press "Publish"
     Then I should see "Hello World!"
     And I should see "This is my fist post!"
