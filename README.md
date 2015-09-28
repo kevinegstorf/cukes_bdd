@@ -126,3 +126,91 @@ end
 ```
 
 for more examples look at the [capybara documentation](https://github.com/jnicklas/capybara).
+
+##Making the first test pass
+We will start off by doing step by step the ```path_steps.rb``` test.
+As this is a blogging application we will start off by making a route for posts.
+
+change the code inside the file into.
+
+```ruby
+Given(/^I am on the home page$/) do
+  visit "/posts"
+end
+```
+
+and run the following command in the commandline.
+
+```bash
+$ rake cucumber
+```
+
+As you can see this test is not passing. You can read the folliwig test in the commandline.
+
+```bash
+ Scenario: Creating a blog post                 # features/blogging.feature:6
+    Given I am on the home page                  # features/step_definitions/path_steps.rb:1
+      No route matches [GET] "/posts" (ActionController::RoutingError)
+      ./features/step_definitions/path_steps.rb:2:in `/^I am on the home page$/'
+```
+
+which means we dont have a route that matches posts. to fix this we need to go to ```config/routes.rb``` and update the file so it looks like this:
+
+```ruby
+Rails.application.routes.draw do
+  resources :posts
+end
+```
+
+Now run the test again. Now the error message will be.
+
+```bash
+  Scenario: Creating a blog post                 # features/blogging.feature:6
+    Given I am on the home page                  # features/step_definitions/path_steps.rb:1
+      uninitialized constant PostsController (ActionController::RoutingError)
+      ./features/step_definitions/path_steps.rb:2:in `/^I am on the home page$/'
+```
+
+Which means we need a controller for the posts route. Now run the following cammand on the commandline.
+
+```bash
+$ rails generate controller posts
+```
+
+Now run the test again. Now the error message will be.
+
+```bash
+  Scenario: Creating a blog post                 # features/blogging.feature:6
+    Given I am on the home page                  # features/step_definitions/path_steps.rb:1
+      The action 'index' could not be found for PostsController (AbstractController::ActionNotFound)
+      ./features/step_definitions/path_steps.rb:2:in `/^I am on the home page$/'
+```
+Which means we do not have a method in the controller file called index.
+so lets update the controller file accordingly. so lets go to ```controller/posts_controller.rb```. Inside the file past the followig code.
+
+```ruby
+class PostsController < ApplicationController
+  def index
+  end
+end
+```
+
+And now run then test again. Now the error message will be.
+
+```bash
+Scenario: Creating a blog post                 # features/blogging.feature:6
+    Given I am on the home page                  # features/step_definitions/path_steps.rb:1
+      Missing template posts/index, application/index with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:erb, :builder, :raw, :ruby, :coffee, :jbuilder]}.
+```      
+
+Which means we need to add ```index.html.erb``` view in the ```view/posts```. So lets do that.
+
+Now run the test again. It says.
+
+```bash
+Scenario: Creating a blog post                 # features/blogging.feature:6
+    Given I am on the home page                  # features/step_definitions/path_steps.rb:1
+```    
+
+
+Congratz! You just made your first Cucumber test pass!!
